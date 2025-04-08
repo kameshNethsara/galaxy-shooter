@@ -16,7 +16,6 @@ const enemyImage2 = new Image();
 enemyImage2.src = 'assets/images/enemy-1.png';
 
 
-
 // Game state
 let player = {
     x: 400,
@@ -69,7 +68,17 @@ document.getElementById('startBtn').addEventListener('click', startGame);
 document.getElementById('restartBtn').addEventListener('click', startGame);
 document.addEventListener('keydown', handleKeyDown);
 document.addEventListener('touchstart', handleTouch);
+//document.getElementById('shootBtn').addEventListener('touchstart', shoot);
+document.getElementById('leftBtn').addEventListener('touchstart', () => {
+    player.x = Math.max(0, player.x - player.speed);
+});
+
+document.getElementById('rightBtn').addEventListener('touchstart', () => {
+    player.x = Math.min(canvas.width - player.width, player.x + player.speed);
+});
+
 document.getElementById('shootBtn').addEventListener('touchstart', shoot);
+
 
 // Game functions
 function startGame() {
@@ -146,8 +155,11 @@ function handleKeyDown(e) {
 function handleTouch(e) {
     const rect = canvas.getBoundingClientRect();
     const touchX = e.touches[0].clientX - rect.left;
-    player.x = touchX - player.width/2;
+
+    // Smooth move
+    player.x += (touchX - player.x - player.width / 2) * 0.2;
 }
+
 
 function shoot() {
     if (isGameOver) return;

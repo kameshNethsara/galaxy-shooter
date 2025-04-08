@@ -4,6 +4,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* ======================================================================= */
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    touch-action: none; /* Prevent scroll when touching canvas */
+}
+/* ========================================================================= */
 
 body {
     background: #000;
@@ -64,18 +72,39 @@ button:hover {
     border-radius: 5px;
 }
 
-#mobileControls {
+/* #mobileControls {
     position: absolute;
     bottom: 20px;
     right: 20px;
     gap: 10px;
-}
+} */
 
 #shootBtn {
     padding: 20px;
     border-radius: 50%;
     background: #f44336;
 }
+/* ========================================================================= */
+#mobileControls {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 1000;
+}
+
+#mobileControls button {
+    font-size: 30px;
+    padding: 15px 20px;
+    border: none;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border-radius: 10px;
+}
+
+/* ========================================================================= */
 
 #gameOverScreen {
     background: rgba(0, 0, 0, 0.95);
