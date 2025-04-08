@@ -8,13 +8,21 @@ const scoreElement = document.getElementById('score');
 const healthElement = document.getElementById('health');
 const levelElement = document.getElementById('level');
 const finalScoreElement = document.getElementById('finalScore');
+const playerImage = new Image();
+playerImage.src = 'assets/images/player.png';
+const enemyImage = new Image();
+enemyImage.src = 'assets/images/asteroid.png';
+const enemyImage2 = new Image();
+enemyImage2.src = 'assets/images/enemy-1.png';
+
+
 
 // Game state
 let player = {
     x: 400,
     y: 500,
-    width: 40,
-    height: 40,
+    width: 80,
+    height: 80,
     speed: 20,
     health: 100
 };
@@ -107,11 +115,16 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
+// function updatePlayer() {
+//     // Draw player
+//     ctx.fillStyle = '#4CAF50';
+//     ctx.fillRect(player.x, player.y, player.width, player.height);
+// }
+
 function updatePlayer() {
-    // Draw player
-    ctx.fillStyle = '#4CAF50';
-    ctx.fillRect(player.x, player.y, player.width, player.height);
+    ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
 }
+
 
 function handleKeyDown(e) {
     if (isGameOver) return;
@@ -154,24 +167,57 @@ function spawnEnemies() {
         enemies.push({
             x: Math.random() * (canvas.width - 30),
             y: -30,
-            width: 30,
-            height: 30,
+            width: 50,
+            height: 50,
             speed: 2 + level * 0.5
         });
     }
 }
 
+//randomly added 2 or more enemies
+// function spawnEnemies() {
+//     if (Math.random() < 0.02 * level) {
+//         const enemyType = Math.random() < 0.5 ? 1 : 2; // Random 1 or 2
+
+//         enemies.push({
+//             x: Math.random() * (canvas.width - 30),
+//             y: -30,
+//             width: 30,
+//             height: 30,
+//             speed: 2 + level * 0.5,
+//             type: enemyType
+//         });
+//     }
+// }
+
 function updateEnemies() {
     enemies.forEach((enemy, index) => {
         enemy.y += enemy.speed;
-        ctx.fillStyle = '#f44336';
-        ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
-
+        // ctx.fillStyle = '#f44336';
+        // ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+        ctx.drawImage(enemyImage, enemy.x, enemy.y, enemy.width, enemy.height);
         if (enemy.y > canvas.height) {
             enemies.splice(index, 1);
         }
     });
 }
+
+//type of enemies added code
+// function updateEnemies() {
+//     enemies.forEach((enemy, index) => {
+//         enemy.y += enemy.speed;
+
+//         if (enemy.type === 1) {
+//             ctx.drawImage(enemyImage1, enemy.x, enemy.y, enemy.width, enemy.height);
+//         } else if (enemy.type === 2) {
+//             ctx.drawImage(enemyImage2, enemy.x, enemy.y, enemy.width, enemy.height);
+//         }
+
+//         if (enemy.y > canvas.height) {
+//             enemies.splice(index, 1);
+//         }
+//     });
+// }
 
 function updateProjectiles() {
     projectiles.forEach((projectile, index) => {
