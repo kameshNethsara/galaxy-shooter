@@ -79,11 +79,11 @@ button:hover {
     gap: 10px;
 } */
 
-#shootBtn {
+/* #shootBtn {
     padding: 20px;
     border-radius: 50%;
     background: #f44336;
-}
+} */
 /* ========================================================================= */
 #mobileControls {
     position: fixed;
@@ -102,6 +102,27 @@ button:hover {
     background: rgba(0,0,0,0.5);
     color: white;
     border-radius: 10px;
+}
+
+/* Hide controls on large screens */
+@media (min-width: 768px) {
+    #mobileControls {
+        display: none !important;
+    }
+}
+
+/* Show controls on small screens */
+@media (max-width: 767px) {
+    #mobileControls {
+        display: flex; /* or block */
+        justify-content: center;
+        gap: 10px;
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
 }
 
 /* ========================================================================= */
